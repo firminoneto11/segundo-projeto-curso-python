@@ -12,35 +12,72 @@ menu de adm / apos login efetuado:
 5 - Voltar ao menu inicial
 """
 from resetar_tela import clear_pycharm
+import pickle as pck
+from os.path import exists
 from time import sleep
 
 
-class Adm:
-    # Criar um txt para armazenar mudanças de senha
-
+class Perfil:
+    
     def __init__(self):
-        self.__password = "admin"
-        self.__login = "admin"
+        self.__login = 'admin'
+        self.__password = 'admin'
+    
+    @property
+    def login(self):
+        return self.__login
 
     @property
     def password(self):
         return self.__password
 
+
+class Adm:
+
+    @staticmethod
+    def password_manager():
+        file = r"..\database_files\adm.pickle"
+        if exists(file) is False:
+            with open(file, mode='wb') as fl:
+                ad = Perfil()
+                ad_ = ad.login, ad.password
+                pck.dump(ad, fl)
+                return ad_
+        else:
+            with open(file, mode='rb') as fl:
+                ad = pck.load(fl)
+                ad_ = ad.login, ad.password
+                return ad_
+
+    def __init__(self):
+        init = Adm.password_manager()
+        self.__login = init[0]
+        self.__password = init[1]
+
     @property
     def login(self):
         return self.__login
 
-    @password.setter
-    def password(self, new_value):
-        self.__password = new_value
+    @property
+    def password(self):
+        return self.__password
 
     @login.setter
     def login(self, new_value):
-        self.__login = new_value
+        file = r"..\database_files\adm.pickle"
+        with open(file, mode='wb') as fl:
+            self.__login = new_value
+            pck.dump(self, fl)
+
+    @password.setter
+    def password(self, new_value):
+        file = r"..\database_files\adm.pickle"
+        with open(file, mode='wb') as fl:
+            self.__password = new_value
+            pck.dump(self, fl)
 
 
 def menu_adm():
-    clear_pycharm()
     adm = Adm()
     print("\nPara continuar, Insira o login e senha do perfil de administrador.")
     log = input("Login: ")
@@ -64,8 +101,7 @@ def menu_adm():
             option = input("Selecione uma das opções acima: ")
 
         if option == '5':
-            clear_pycharm()
-            input("Pressione enter para voltar ao menu inicial: ")
+            input("\nPressione enter para voltar ao menu inicial: ")
             break
 
         elif option == '4':
