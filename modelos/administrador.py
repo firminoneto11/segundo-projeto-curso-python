@@ -8,8 +8,8 @@ menu de adm / apos login efetuado:
 1 - Adicionar um novo produto
 2 - Editar produto
 3 - Excluir produto
-4 - Alterar senha/login
-5 - Voltar ao menu inicial
+4 - Alterar senha/login | done
+5 - Voltar ao menu inicial | done
 """
 from resetar_tela import clear_pycharm
 import pickle as pck
@@ -94,14 +94,14 @@ def menu_adm():
               "\n(2) - Editar produto;"
               "\n(3) - Excluir produto;"
               "\n(4) - Trocar senha ou login;"
-              "\n(5) - Voltar ao menu inicial")
+              "\n(5) - Voltar ao menu principal;")
         option = input("\nSelecione uma das opções acima: ")
         while option != '1' and option != '2' and option != '3' and option != '4' and option != '5':
             print("\nA opção escolhida é inválida!")
             option = input("Selecione uma das opções acima: ")
 
         if option == '5':
-            input("\nPressione enter para voltar ao menu inicial: ")
+            input("\nPressione enter para voltar ao menu principal: ")
             break
 
         elif option == '4':
@@ -109,14 +109,24 @@ def menu_adm():
             new_login = input("\nInsira o novo nome de usuário (login): ")
             new_password = input("Insira a nova senha: ")
             password_confirmation = input("Confirme a nova senha: ")
+            sleep(1)
             if new_password != password_confirmation:
-                input("As senhas nao conferem! Pressione enter para voltar ao menu principal: ")
+                input("\nAs senhas nao conferem! Pressione enter para voltar ao menu principal: ")
                 break
             else:
                 adm.login = new_login
                 adm.password = new_password
                 input("\nLogin e senha atualizados com sucesso! Pressione enter para voltar ao menu do administrador: ")
                 continue
+
+        elif option == '1':
+            clear_pycharm()
+
+        elif option == '2':
+            pass
+
+        else:
+            pass
 
 
 if __name__ == '__main__':

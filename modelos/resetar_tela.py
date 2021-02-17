@@ -7,5 +7,8 @@ def clear_pycharm():
     :return: None
     """
     keyboard = Controller()
-    with keyboard.pressed(Key.alt):
-        keyboard.press("'")
+    tecla = Key.f10
+    # with keyboard.pressed(Key.alt):
+    #    keyboard.press("'")
+    keyboard.press(tecla)
+    keyboard.release(tecla)
