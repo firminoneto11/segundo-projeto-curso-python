@@ -5,7 +5,7 @@ Criar um campo de administrador (1)
 atributos - senha / login
 
 menu de adm / apos login efetuado:
-1 - Adicionar um novo produto
+1 - Adicionar um novo produto | done
 2 - Editar produto
 3 - Excluir produto
 4 - Alterar senha/login | done
@@ -15,28 +15,15 @@ from resetar_tela import clear_pycharm
 import pickle as pck
 from os.path import exists
 from time import sleep
-
-
-class Perfil:
-    
-    def __init__(self):
-        self.__login = 'admin'
-        self.__password = 'admin'
-    
-    @property
-    def login(self):
-        return self.__login
-
-    @property
-    def password(self):
-        return self.__password
+from produtos import adicionar_produto
+from profile import Perfil
 
 
 class Adm:
 
     @staticmethod
     def password_manager():
-        file = r"..\database_files\adm.pickle"
+        file = r"../database_files/adm.pickle"
         if exists(file) is False:
             with open(file, mode='wb') as fl:
                 ad = Perfil()
@@ -64,14 +51,14 @@ class Adm:
 
     @login.setter
     def login(self, new_value):
-        file = r"..\database_files\adm.pickle"
+        file = r"../database_files/adm.pickle"
         with open(file, mode='wb') as fl:
             self.__login = new_value
             pck.dump(self, fl)
 
     @password.setter
     def password(self, new_value):
-        file = r"..\database_files\adm.pickle"
+        file = r"../database_files/adm.pickle"
         with open(file, mode='wb') as fl:
             self.__password = new_value
             pck.dump(self, fl)
@@ -121,6 +108,7 @@ def menu_adm():
 
         elif option == '1':
             clear_pycharm()
+            adicionar_produto()
 
         elif option == '2':
             pass
@@ -130,4 +118,4 @@ def menu_adm():
 
 
 if __name__ == '__main__':
-    menu_adm()
+    pass

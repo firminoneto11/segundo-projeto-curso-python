@@ -35,6 +35,7 @@ def menu_principal():
             break
 
         elif option == '1':
+            clear_pycharm()
             menu_adm()
 
         elif option == '2':
