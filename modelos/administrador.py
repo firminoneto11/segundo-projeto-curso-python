@@ -7,7 +7,7 @@ atributos - senha / login
 menu de adm / apos login efetuado:
 1 - Adicionar um novo produto | done
 2 - Editar produto
-3 - Excluir produto
+3 - Excluir produto | done
 4 - Alterar senha/login | done
 5 - Voltar ao menu inicial | done
 """
@@ -110,9 +110,30 @@ def menu_adm():
 
         elif option == '4':
             clear_pycharm()
+            if Products.check_existance() is False:
+                print("\nNão há produtos cadastrados!")
+                input("Pressione enter para voltar ao menu do administrador: ")
+                continue
             Products.read_register()
-            Products.remove_product()
-            input("\nPressione enter para voltar ao menu do administrador: ")
+            print("\nQual dos produtos gostaria de remover?")
+            escolha = input("Insira um código de um produto acima ou qualquer outro valor para cancelar a remoção: ")
+            if escolha in Products.codigos():
+                print("\nConfirme sua senha e login para continuar.")
+                login = input("Login: ")
+                senha = input("Senha: ")
+                if login != adm.login or senha != adm.password:
+                    sleep(1)
+                    clear_pycharm()
+                    input("\nLogin ou senha incorretos! Pressione enter para voltar ao menu do administrador: ")
+                    continue
+                else:
+                    sleep(1)
+                    clear_pycharm()
+                    Products.remove_product(escolha)
+                    print(f"Produto de código {escolha} removido com sucesso!")
+                    input("\nPressione enter para voltar ao menu do administrador: ")
+            else:
+                input("\nPressione enter para voltar ao menu do administrador: ")
 
         elif option == '3':
             pass
@@ -125,9 +146,14 @@ def menu_adm():
 
         else:
             clear_pycharm()
-            Products.read_register()
-            input("\nPressione enter para voltar ao menu de administrador: ")
-            continue
+            if Products.check_existance() is False:
+                print("\nNão há produtos cadastrados!")
+                input("Pressione enter para voltar ao menu do administrador: ")
+                continue
+            else:
+                Products.read_register()
+                input("\nPressione enter para voltar ao menu de administrador: ")
+                continue
 
 
 if __name__ == '__main__':

@@ -76,6 +76,14 @@ class Products:
     def descricao(self, value):
         self.__descricao = value
 
+    # Este método retorna valores booleanos para verificar a existência do registro de produtos
+    @staticmethod
+    def check_existance():
+        db = Products.PRODUCTS_DATABASE
+        if exists(db) is False:
+            return False
+        return True
+
     # Este método faz uma verificação do arquivo csv onde serão inseridos os produtos
     @classmethod
     def check_db(cls):
@@ -110,9 +118,6 @@ class Products:
     def read_register(cls):
         registro = cls.PRODUCTS_DATABASE
         contador = 0
-        if exists(registro) is False:
-            print("\nNão há produtos cadastrados!")
-            return input("Pressione enter para voltar ao menu de administrador: ")
         with open(registro, mode='r', encoding='utf-8') as file:
             print("-------------------------------------------------------------------\n"
                   "              Código | Nome | Preço/(R$) | Descrição"
@@ -125,12 +130,26 @@ class Products:
 
     @classmethod
     def remove_product(cls, codigo):
-        if exists(cls.PRODUCTS_DATABASE) is False:
-            return "\nNão há produtos cadastrados!"
-        else:
-            with open(cls.PRODUCTS_DATABASE, mode='r', encoding='utf-8') as file:
-                reader = DictReader(file)
-                pass
+        conteudo_antigo = []
+        with open(cls.PRODUCTS_DATABASE, mode='r', encoding='utf-8') as file:
+            for line in file.readlines():
+                conteudo_antigo.append(line)
+        with open(cls.PRODUCTS_DATABASE, mode='w', encoding='utf-8') as file:
+            for line in conteudo_antigo:
+                if line.startswith(codigo):
+                    pass
+                else:
+                    file.write(line)
+
+    @classmethod
+    def codigos(cls):
+        registro = cls.PRODUCTS_DATABASE
+        codigos = []
+        with open(registro, mode='r', encoding='utf-8') as file:
+            leitor = DictReader(file)
+            for produto in leitor:
+                codigos.append(produto['Código'])
+        return codigos
 
 
 # Cadastrar Produtos
