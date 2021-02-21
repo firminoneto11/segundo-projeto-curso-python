@@ -5,7 +5,7 @@ Os métodos de CADASTRAR, EDITAR E EXCLUIR PRODUTO devem ser disponíveis apenas
 registro de dados se for fornecida o login e senha do Administrador
 """
 from csv import DictReader, DictWriter
-from resetar_tela import clear_pycharm
+from modelos.resetar_tela import clear_pycharm
 from os.path import exists
 
 
@@ -14,7 +14,7 @@ class Counter:
     Essa classe faz o registro do código dos produtos do sistema e os grava em um arquivo pickle, que codifica o conteú
     do de forma natural.
     """
-    ID_COUNTER = r"..\database_files\counting_id.pickle"
+    ID_COUNTER = r".\database_files\counting_id.pickle"
     COUNTER = None
 
     @classmethod
@@ -34,7 +34,7 @@ class Counter:
 
 class Products:
 
-    PRODUCTS_DATABASE = r"..\database_files\products.csv"
+    PRODUCTS_DATABASE = r".\database_files\products.csv"
 
     def __init__(self, nome, preco, desc):
         code = Counter.counting()
@@ -110,6 +110,9 @@ class Products:
     def read_register(cls):
         registro = cls.PRODUCTS_DATABASE
         contador = 0
+        if exists(registro) is False:
+            print("\nNão há produtos cadastrados!")
+            return input("Pressione enter para voltar ao menu de administrador: ")
         with open(registro, mode='r', encoding='utf-8') as file:
             print("-------------------------------------------------------------------\n"
                   "              Código | Nome | Preço/(R$) | Descrição"
@@ -119,6 +122,15 @@ class Products:
                 contador = contador + 1
                 print(f"{product['Código']} | {product['Nome']} | R${product['Preço/(R$)']} | {product['Descrição']}")
         print(f"\nTotal de produtos cadastrados: {contador}")
+
+    @classmethod
+    def remove_product(cls, codigo):
+        if exists(cls.PRODUCTS_DATABASE) is False:
+            return "\nNão há produtos cadastrados!"
+        else:
+            with open(cls.PRODUCTS_DATABASE, mode='r', encoding='utf-8') as file:
+                reader = DictReader(file)
+                pass
 
 
 # Cadastrar Produtos
@@ -153,12 +165,6 @@ def adicionar_produto():
     new_product = Products(nome=name, preco=price, desc=description)
     new_product.save_on_register()
     print("\nProduto cadastrado com sucesso!")
-    input("Pressione enter para continuar: ")
-
-    # Apresentando o novo elemento no registro e finalizando o cadastro
-    clear_pycharm()
-    new_product.read_register()
-    input("\nPressione enter para finalizar o cadastro e voltar ao menu do administrador: ")
 
 
 if __name__ == '__main__':

@@ -1,4 +1,3 @@
-from modelos import menu_inicial
-from modelos.resetar_tela import clear_pycharm
+from modelos.menu_inicial import menu_principal
 
-menu_inicial.menu_principal()
+menu_principal()

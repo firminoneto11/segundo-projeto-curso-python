@@ -7,8 +7,8 @@ Campo de Listagem(3)
     Neste campo o usuário pode ver todos os produtos que estão no carrinho e excluir algo que seja do interesse do mesmo
 apresentar também o total da compra
 """
-from resetar_tela import clear_pycharm
-from administrador import menu_adm
+from modelos.resetar_tela import clear_pycharm
+from modelos.administrador import menu_adm
 
 
 def menu_principal():
@@ -34,15 +34,15 @@ def menu_principal():
             input("Pressione enter para finalizar o programa: ")
             break
 
-        elif option == '1':
-            clear_pycharm()
-            menu_adm()
+        elif option == '3':
+            continue
 
         elif option == '2':
             continue
 
-        elif option == '3':
-            continue
+        elif option == '1':
+            clear_pycharm()
+            menu_adm()
 
 
 if __name__ == '__main__':

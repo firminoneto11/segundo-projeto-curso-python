@@ -11,19 +11,20 @@ menu de adm / apos login efetuado:
 4 - Alterar senha/login | done
 5 - Voltar ao menu inicial | done
 """
-from resetar_tela import clear_pycharm
+from modelos.resetar_tela import clear_pycharm
 import pickle as pck
 from os.path import exists
 from time import sleep
-from produtos import adicionar_produto
-from profile import Perfil
+from modelos.produtos import adicionar_produto
+from modelos.profile import Perfil
+from modelos.produtos import Products
 
 
 class Adm:
 
     @staticmethod
     def password_manager():
-        file = r"../database_files/adm.pickle"
+        file = r".\database_files\adm.pickle"
         if exists(file) is False:
             with open(file, mode='wb') as fl:
                 ad = Perfil()
@@ -51,14 +52,14 @@ class Adm:
 
     @login.setter
     def login(self, new_value):
-        file = r"../database_files/adm.pickle"
+        file = r".\database_files\adm.pickle"
         with open(file, mode='wb') as fl:
             self.__login = new_value
             pck.dump(self, fl)
 
     @password.setter
     def password(self, new_value):
-        file = r"../database_files/adm.pickle"
+        file = r".\database_files\adm.pickle"
         with open(file, mode='wb') as fl:
             self.__password = new_value
             pck.dump(self, fl)
@@ -77,21 +78,22 @@ def menu_adm():
     while True:
         clear_pycharm()
         print("------------------------------\n  Administrador\n------------------------------")
-        print("\n(1) - Adicionar um novo produto;"
-              "\n(2) - Editar produto;"
-              "\n(3) - Excluir produto;"
-              "\n(4) - Trocar senha ou login;"
-              "\n(5) - Voltar ao menu principal;")
+        print("\n(1) - Listar produtos;"
+              "\n(2) - Adicionar um novo produto;"
+              "\n(3) - Editar produto;"
+              "\n(4) - Excluir produto;"
+              "\n(5) - Trocar senha e login;"
+              "\n(6) - Voltar ao menu principal;")
         option = input("\nSelecione uma das opções acima: ")
-        while option != '1' and option != '2' and option != '3' and option != '4' and option != '5':
+        while option != '1' and option != '2' and option != '3' and option != '4' and option != '5' and option != '6':
             print("\nA opção escolhida é inválida!")
             option = input("Selecione uma das opções acima: ")
 
-        if option == '5':
+        if option == '6':
             input("\nPressione enter para voltar ao menu principal: ")
             break
 
-        elif option == '4':
+        elif option == '5':
             clear_pycharm()
             new_login = input("\nInsira o novo nome de usuário (login): ")
             new_password = input("Insira a nova senha: ")
@@ -106,16 +108,27 @@ def menu_adm():
                 input("\nLogin e senha atualizados com sucesso! Pressione enter para voltar ao menu do administrador: ")
                 continue
 
-        elif option == '1':
+        elif option == '4':
             clear_pycharm()
-            adicionar_produto()
+            Products.read_register()
+            Products.remove_product()
+            input("\nPressione enter para voltar ao menu do administrador: ")
+
+        elif option == '3':
+            pass
 
         elif option == '2':
-            pass
+            clear_pycharm()
+            adicionar_produto()
+            input("\nPressione enter para voltar ao menu do administrador: ")
+            continue
 
         else:
-            pass
+            clear_pycharm()
+            Products.read_register()
+            input("\nPressione enter para voltar ao menu de administrador: ")
+            continue
 
 
 if __name__ == '__main__':
-    pass
+    menu_adm()
