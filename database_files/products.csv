@@ -1,18 +1,12 @@
-Código,Nome,Descrição,Preço/(R$)
-
-1,Cabo HDMI,Um cabo HDMI 2.0,23.99
-
-2,Burner Phone,Um celular descartável,50
-
-3,Nitro 5,Notebook,4999
-
-4,Adaptador USB 3.0 para HDMI,Um adaptador que converte audio/video da saida USB 3.0 para HDMI 2.0,130.00
-
-5,Sushi,Uma porção de sushi,19.99
-
-6,Monitor de Aúdio Edifier,Um belíssimo par de monitores de áudio,499.99
-
-7,Smartphone,Um celular para o diaadia,799.99
-
-8,Barca de Sushi,Contém 200 peças,450.00
-
+Código,Nome,Preço/(R$),Descrição
+1,Cabo HDMI,23.99,Um cabo HDMI 2.0
+2,Burner Phone,50.00,Um celular descartável
+3,Nitro 5 17'Polegadas,5000.00,Um super notebook
+4,Adaptador USB 3.0 para HDMI,130.00,Um adaptador que converte audio/video da saida USB 3.0 para HDMI 2.0
+5,Sushi,19.99,Uma porção de sushi
+6,Monitor de Aúdio Edifier,499.99,Um belíssimo par de monitores de áudio
+7,Smartphone,799.99,Um celular para o diaadia
+8,Barca de Sushi,450.00,Contém 200 peças
+9,Água,5.00,Uma garrafa d'agua
+10,Tiara,10.00,Uma peça para segurar os cabelos
+11,Pen-Drive,20.00,Pen-Drive 30GB

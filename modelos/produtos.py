@@ -1,9 +1,4 @@
-"""
-Na classe produtos, eles podem apenas ter os seguintes atributos:
 
-Os métodos de CADASTRAR, EDITAR E EXCLUIR PRODUTO devem ser disponíveis apenas para administrador / Apenas atualizar o
-registro de dados se for fornecida o login e senha do Administrador
-"""
 from csv import DictReader, DictWriter
 from modelos.resetar_tela import clear_pycharm
 from os.path import exists
@@ -92,8 +87,8 @@ class Products:
         :return: None
         """
         if exists(cls.PRODUCTS_DATABASE) is False:
-            with open(cls.PRODUCTS_DATABASE, mode='w', encoding='utf-8') as file:
-                header = "Código", "Nome", "Descrição", "Preço/(R$)"
+            with open(cls.PRODUCTS_DATABASE, mode='w', encoding='utf-8', newline=None) as file:
+                header = "Código", "Nome", "Preço/(R$)", "Descrição"
                 writer = DictWriter(file, fieldnames=header)
                 writer.writeheader()
 
@@ -103,8 +98,8 @@ class Products:
         Efetua o cadastro do novo produto no registro (aqruivo csv)
         :return: None
         """
-        header = "Código", "Nome", "Descrição", "Preço/(R$)"
-        with open(Products.PRODUCTS_DATABASE, mode='a', encoding='utf-8') as file:
+        header = "Código", "Nome", "Preço/(R$)", "Descrição"
+        with open(Products.PRODUCTS_DATABASE, mode='a', encoding='utf-8', newline=None) as file:
             writer = DictWriter(file, fieldnames=header)
             writer.writerow({
                 "Código": self.codigo,
@@ -118,7 +113,7 @@ class Products:
     def read_register(cls):
         registro = cls.PRODUCTS_DATABASE
         contador = 0
-        with open(registro, mode='r', encoding='utf-8') as file:
+        with open(registro, mode='r', encoding='utf-8', newline=None) as file:
             print("-------------------------------------------------------------------\n"
                   "              Código | Nome | Preço/(R$) | Descrição"
                   "\n-------------------------------------------------------------------")
@@ -131,10 +126,10 @@ class Products:
     @classmethod
     def remove_product(cls, codigo):
         conteudo_antigo = []
-        with open(cls.PRODUCTS_DATABASE, mode='r', encoding='utf-8') as file:
+        with open(cls.PRODUCTS_DATABASE, mode='r', encoding='utf-8', newline=None) as file:
             for line in file.readlines():
                 conteudo_antigo.append(line)
-        with open(cls.PRODUCTS_DATABASE, mode='w', encoding='utf-8') as file:
+        with open(cls.PRODUCTS_DATABASE, mode='w', encoding='utf-8', newline=None) as file:
             for line in conteudo_antigo:
                 if line.startswith(codigo):
                     pass
@@ -145,11 +140,25 @@ class Products:
     def codigos(cls):
         registro = cls.PRODUCTS_DATABASE
         codigos = []
-        with open(registro, mode='r', encoding='utf-8') as file:
+        with open(registro, mode='r', encoding='utf-8', newline=None) as file:
             leitor = DictReader(file)
             for produto in leitor:
                 codigos.append(produto['Código'])
         return codigos
+
+    @classmethod
+    def update(cls, code, v1, v2, v3):
+        register = cls.PRODUCTS_DATABASE
+        old_content = []
+        with open(register, mode='r', encoding='utf-8', newline=None) as file:
+            for line in file.readlines():
+                old_content.append(line)
+        with open(register, mode='w', encoding='utf-8', newline=None) as file:
+            for line in old_content:
+                if line.startswith(code):
+                    file.write(f"{code},{v1},{v2},{v3}")
+                else:
+                    file.write(line)
 
 
 # Cadastrar Produtos
@@ -184,6 +193,40 @@ def adicionar_produto():
     new_product = Products(nome=name, preco=price, desc=description)
     new_product.save_on_register()
     print("\nProduto cadastrado com sucesso!")
+
+
+# Editar produtos
+def editar_produto(new_code):
+    """
+    Esta função realiza o processo de edição de um produto no sistema
+    :return: None
+    """
+    clear_pycharm()
+    # Solicitando um novo preço para o produto
+    print("\nInsira o novo preço do produto.")
+    new_price = input("Preço: ")
+    if ',' in new_price:
+        new_price = new_price.replace(',', '.')
+    try:
+        float(new_price)
+    except ValueError:
+        return print("O valor atribuido para o preço é inválido! Tente novamente.")
+
+    # Solicitando um novo nome para o produto
+    clear_pycharm()
+    print("\nInsira o novo nome do produto.")
+    new_name = input("Nome: ")
+
+    # Solicitando uma nova descrição para o produto
+    clear_pycharm()
+    print("\nInsira a nova descrição do produto.")
+    new_description = input("Descrição: ")
+
+    # Aplicando a atualização/edição
+    Products.update(code=new_code, v1=new_name, v2=new_price, v3=new_description)
+
+    clear_pycharm()
+    print("\nProduto atualizado com sucesso!")
 
 
 if __name__ == '__main__':

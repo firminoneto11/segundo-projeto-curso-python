@@ -1,15 +1,5 @@
 """
-Criar um campo de administrador (1)
-    Neste campo ele pode adicionar um novo produto / editar / excluir
-
-atributos - senha / login
-
-menu de adm / apos login efetuado:
-1 - Adicionar um novo produto | done
-2 - Editar produto
-3 - Excluir produto | done
-4 - Alterar senha/login | done
-5 - Voltar ao menu inicial | done
+Campo de Administrador totalmente funcional!
 """
 from modelos.resetar_tela import clear_pycharm
 import pickle as pck
@@ -18,6 +8,7 @@ from time import sleep
 from modelos.produtos import adicionar_produto
 from modelos.profile import Perfil
 from modelos.produtos import Products
+from modelos.produtos import editar_produto
 
 
 class Adm:
@@ -89,10 +80,12 @@ def menu_adm():
             print("\nA opção escolhida é inválida!")
             option = input("Selecione uma das opções acima: ")
 
+        # Option == 6
         if option == '6':
             input("\nPressione enter para voltar ao menu principal: ")
             break
 
+        # Option == 5
         elif option == '5':
             clear_pycharm()
             new_login = input("\nInsira o novo nome de usuário (login): ")
@@ -108,6 +101,7 @@ def menu_adm():
                 input("\nLogin e senha atualizados com sucesso! Pressione enter para voltar ao menu do administrador: ")
                 continue
 
+        # Option == 4
         elif option == '4':
             clear_pycharm()
             if Products.check_existance() is False:
@@ -135,15 +129,35 @@ def menu_adm():
             else:
                 input("\nPressione enter para voltar ao menu do administrador: ")
 
+        # Option == 3
         elif option == '3':
-            pass
+            clear_pycharm()
+            if Products.check_existance() is False:
+                print("\nNão há produtos cadastrados!")
+                input("Pressione enter para voltar ao menu do administrador: ")
+                continue
+            else:
+                Products.read_register()
+                print("\nQual dos produtos acima gostaria de editar?")
+                code = input(
+                    "Insira o código de um dos elementos acima ou qualquer outro valor para voltar ao menu de administr"
+                    "ador: ")
+                if code in Products.codigos():
+                    editar_produto(code)
+                    input("\nPressione enter para voltar ao menu do administrador: ")
+                    continue
+                else:
+                    input("\nPressione enter para voltar ao menu do administrador: ")
+                    continue
 
+        # Option == 2
         elif option == '2':
             clear_pycharm()
             adicionar_produto()
             input("\nPressione enter para voltar ao menu do administrador: ")
             continue
 
+        # Option == 1
         else:
             clear_pycharm()
             if Products.check_existance() is False:
