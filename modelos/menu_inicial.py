@@ -1,14 +1,8 @@
-"""
-Campo de compra (2)
-    Neste campo o usuário pode visualizar(listar) os produtos disponiveis para compra, comprar um ou mais produtos sendo
-não necessário ser do mesmo tipo e caso ele escolha duas vezes o mesmo produto, aumentar a quantidade no carrinho
 
-Campo de Listagem(3)
-    Neste campo o usuário pode ver todos os produtos que estão no carrinho e excluir algo que seja do interesse do mesmo
-apresentar também o total da compra
-"""
 from modelos.resetar_tela import clear_pycharm
 from modelos.administrador import menu_adm
+from modelos.clientes import comprar_produto, visualizar_carrinho, CARRINHO
+from modelos.produtos import Products
 
 
 def menu_principal():
@@ -21,26 +15,51 @@ def menu_principal():
         print("------------------------------\n  Bem-vindo a ValWare Shop\n------------------------------")
         print("\n(1) - Entrar como administrador;"
               "\n(2) - Comprar um novo produto;"
-              "\n(3) - Listar os produtos no carrinho;"
-              "\n(4) - Sair da aplicação;")
+              "\n(3) - Listar os produtos do carrinho;"
+              "\n(4) - Fechar pedido;"
+              "\n(5) - Sair da aplicação;")
         option = input("\nSelecione uma das opções acima: ")
-        while option != '1' and option != '2' and option != '3' and option != '4':
+        while option != '1' and option != '2' and option != '3' and option != '4' and option != '5':
             print("\nA opção escolhida é inválida!")
             option = input("Selecione uma das opções acima: ")
 
-        if option == '4':
+        # Option == '5' / Sair
+        if option == '5':
             clear_pycharm()
             print("\nMuito obrigado e até a próxima!")
             input("Pressione enter para finalizar o programa: ")
             break
 
+        # Option == '4' / Fechar pedido
+        elif option == '4':
+            continue
+
+        # Option == '3' / Listar produtos do carrinho
         elif option == '3':
-            continue
+            clear_pycharm()
+            if Products.check_existance is False:
+                print("\nNão existem produtos cadastrados no momento!")
+                input("Pressione enter para voltar ao menu inicial: ")
+            else:
+                clear_pycharm()
+                if len(CARRINHO) > 0:
+                    visualizar_carrinho()
+                    input("\nPressione enter para voltar ao menu inicial: ")
+                else:
+                    print("Ainda não foram adicionados produtos ao carrinho. Vá comprar um pouco!")
+                    input("Pressione enter para voltar ao menu inicial: ")
 
+        # Option == '2' / Comprar um novo produto
         elif option == '2':
-            continue
+            clear_pycharm()
+            if Products.check_existance() is False:
+                print("\nNão existem produtos cadastrados no momento!")
+            else:
+                comprar_produto()
+            input("\nPressione enter para voltar ao menu inicial: ")
 
-        elif option == '1':
+        # Option == '1' / Entrar como administrador
+        else:
             clear_pycharm()
             menu_adm()
 
