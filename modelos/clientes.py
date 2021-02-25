@@ -2,6 +2,7 @@
 from modelos.produtos import Products
 from csv import DictReader
 from modelos.resetar_tela import clear_pycharm
+from time import sleep
 
 CARRINHO = []
 
@@ -66,3 +67,32 @@ def comprar_produto():
         return None
     else:
         return print(escolhe_produto(escolha))
+
+
+def fechar_pedido():
+    global CARRINHO
+    total = []
+    print("\n-------------")
+    print("Fechar pedido")
+    print("-------------\n")
+    for lista in CARRINHO:
+        print(f"Nome do produto: {lista[1]} | Quantidade: {lista[3]} | Preço unitário: R${lista[2]}")
+        total.append(lista[2] * lista[3])
+    valor_total = round(sum(total), 2)
+    print(f"\nO valor total da compra é de R${valor_total}. Gostaria de finalizar o pedido?")
+    option = input("Digite (s) para SIM e (n) para NÃO: ")
+    print('')
+    while option != 's' and option != 'n':
+        option = input("Valor inválido! Digite (s) para SIM e (n) para NÃO: ")
+    if option == 's':
+        clear_pycharm()
+        print("\nDigite 'CONFIRMAR' para finalizar o pedido.")
+        confirmar = input("-> ").upper()
+        sleep(2)
+        if confirmar != 'CONFIRMAR':
+            return print("\nOpção inserida inválida.")
+        else:
+            CARRINHO.clear()
+            return print(f"\nCompra no valor de R${valor_total} efetuada com sucesso!")
+    else:
+        return None

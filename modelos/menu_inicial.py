@@ -1,7 +1,7 @@
 
 from modelos.resetar_tela import clear_pycharm
 from modelos.administrador import menu_adm
-from modelos.clientes import comprar_produto, visualizar_carrinho, CARRINHO
+from modelos.clientes import comprar_produto, visualizar_carrinho, CARRINHO, fechar_pedido
 from modelos.produtos import Products
 
 
@@ -32,7 +32,13 @@ def menu_principal():
 
         # Option == '4' / Fechar pedido
         elif option == '4':
-            continue
+            clear_pycharm()
+            if len(CARRINHO) > 0:
+                fechar_pedido()
+                input("\nPressione enter para voltar ao menu inicial: ")
+            else:
+                print("\nAinda não foram adicionados produtos ao carrinho. Vá comprar um pouco!")
+                input("Pressione enter para voltar ao menu inicial: ")
 
         # Option == '3' / Listar produtos do carrinho
         elif option == '3':
@@ -41,12 +47,11 @@ def menu_principal():
                 print("\nNão existem produtos cadastrados no momento!")
                 input("Pressione enter para voltar ao menu inicial: ")
             else:
-                clear_pycharm()
                 if len(CARRINHO) > 0:
                     visualizar_carrinho()
                     input("\nPressione enter para voltar ao menu inicial: ")
                 else:
-                    print("Ainda não foram adicionados produtos ao carrinho. Vá comprar um pouco!")
+                    print("\nAinda não foram adicionados produtos ao carrinho. Vá comprar um pouco!")
                     input("Pressione enter para voltar ao menu inicial: ")
 
         # Option == '2' / Comprar um novo produto

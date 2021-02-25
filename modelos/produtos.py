@@ -99,7 +99,7 @@ class Products:
         :return: None
         """
         header = "Código", "Nome", "Preço/(R$)", "Descrição"
-        with open(Products.PRODUCTS_DATABASE, mode='a', encoding='utf-8', newline=None) as file:
+        with open(Products.PRODUCTS_DATABASE, mode='a', encoding='utf-8') as file:
             writer = DictWriter(file, fieldnames=header)
             writer.writerow({
                 "Código": self.codigo,
