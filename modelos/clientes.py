@@ -70,6 +70,11 @@ def comprar_produto():
 
 
 def fechar_pedido():
+    """
+    Esta função realiza o processo de finalização do pedido do cliente e após a devida confirmação, faz a limpeza da lis
+    ta 'CARRINHO' e retorna a confirmação da compra.
+    :return: Confirmação da compra ou None se não finalizada.
+    """
     global CARRINHO
     total = []
     print("\n-------------")
