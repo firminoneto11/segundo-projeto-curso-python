@@ -3,9 +3,10 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/firminoneto11/segundo-projeto-curso-python)
 ![GitHub language count](https://img.shields.io/github/languages/count/firminoneto11/segundo-projeto-curso-python)
 ![GitHub top language](https://img.shields.io/github/languages/top/firminoneto11/segundo-projeto-curso-python)
-<h1>segundo-projeto-curso-python</h1>
+<div align='center'><h1>segundo-projeto-curso-python</h1></div>
 <h3>O segundo projeto realizado em um curso de Python na Udemy.</h3>
 <hr/>
+<br/>
 <div align='center'><h2>💻 Sobre o projeto 💻</h2></div>
 <br/>
 <p>Este projeto foi o segundo projeto realizado no curso de Python ministrado pela Geek University na plataforma digital Udemy. Este programa consiste em criar uma aplicação que simula algumas compras em um mercado. Por ser apenas um mini-projeto, não foi integrado sistemas de pagamentos ou similares. Sistema feito para fins de estudo.</p>
